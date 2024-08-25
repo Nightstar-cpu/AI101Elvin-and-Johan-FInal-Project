@@ -73,7 +73,7 @@ def main():
                  'NumOfProducts': NUMOFPRODUCTS,
                  'HasCrCard': HASCRCARD,
                  'IsActiveMember': ISACTIVEMEMBER,
-                 'EstimatedSalary': ESTIMATEDSALARY }
+                 'EstimatedSalary': ESTIMATEDSALARY })
     df.drop(['Surname', 'CustomerId', 'Balance', 'EstimatedSalary', 'CreditScore'], axis=1, inplace=True)
     df = pd.get_dummies(df, columns=['Geography', 'Gender'])
     result=0
