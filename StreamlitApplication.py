@@ -65,7 +65,7 @@ def main():
     df = pd.DataFrame({'CustomerId' : CUSTOMERID,
                  'Surname' : SURNAME,
                  'CreditScore' : CREDITSCORE,
-                 'Geography' : GEOGRPAHY,
+                 'Geography' : GEOGRAPHY,
                  'Gender': GENDER,
                  'Age' : AGE,
                  'Tenure': TENURE,
