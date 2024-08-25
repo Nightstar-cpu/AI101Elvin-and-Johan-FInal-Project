@@ -82,7 +82,7 @@ def main():
     df = scaler_train.copy()
         
     df_intersect = df[df.columns.intersection(scaler_train.columns)]
-    df = scaler_train.append(df_interset, ignore_index=True)
+    df = pd.concat([scaler_train, df_interset], ignore_index=True)
         
     scaler = StandardScaler()
     scaler.fit(scaler_train)
