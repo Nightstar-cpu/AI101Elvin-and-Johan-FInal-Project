@@ -6,5 +6,4 @@ matplotlib
 scikit-learn
 
 
-
-Run Streamlit run StreamlitApplication.py
+Streamlit run StreamlitApplication.py
