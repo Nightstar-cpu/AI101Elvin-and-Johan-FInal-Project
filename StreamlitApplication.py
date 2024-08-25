@@ -41,15 +41,10 @@ def main():
     """
 
     st.markdown(html_temp,unsafe_allow_html=True)
-    AGE = st.text_input("Age","Type Here")
-    EXITED = st.selectbox("Exited",("Yes","No"))
-    if EXITED == "Yes":
-        EXITED = 1
-    else:
-        EXITED = 0
+    AGE = st.number_input("Age","Type a Number")
     GENDER = st.selectbox("Gender", ("Male", "Female"))
-    TENURE = st.text_input("Tenure(in years)","Type Here")
-    BALANCE = st.text_input("Balance","Type Here")
+    TENURE = st.number_input("Tenure(in years)","Type a Number")
+    BALANCE = st.number_input("Balance","Type a Number")
     SURNAME = st.text_input("Last Name","Type Here")
     GEOGRAPHY = st.selectbox("Country", ("Germany","Spain","France"))
     HASCRCARD = st.selectbox("Has a Credit Card",("Yes","No"))
@@ -57,19 +52,34 @@ def main():
         HASCRCARD = 1
     else:
         HASCRCARD = 0
-    CUSTOMERID = st.text_input("Customer ID", "Type Here")
-    CREDITSCORE = st.text_input("Credit Score", "Type Here")
-    NUMOFPRODUCTS = st.text_input("Number of Products", "Type Here")
+    CUSTOMERID = st.number_input("Customer ID", "Type a Number")
+    CREDITSCORE = st.number_input("Credit Score", "Type a Number")
+    NUMOFPRODUCTS = st.number_input("Number of Products", "Type a Number")
     ISACTIVEMEMBER = st.selectbox("Is An Active Member",("Yes","No"))
     if ISACTIVEMEMBER == "Yes":
         ISACTIVEMEMBER = 1
     else:
         ISACTIVEMEMBER = 0
-    ESTIMATEDSALARY = st.text_input("Estimated Salary","Type Here")
+    ESTIMATEDSALARY = st.number_input("Estimated Salary","Type a Number")
 
+    df = pd.DataFrame({'CustomerId' : CUSTOMERID,
+                 'Surname' : SURNAME,
+                 'CreditScore' : CREDITSCORE,
+                 'Geography', : GEOGRPAHY,
+                 'Gender', : GENDER,
+                 'Age', : AGE,
+                 'Tenure': TENURE,
+                 'Balance': BALANCE,
+                 'NumOfProducts': NUMOFPRODUCTS,
+                 'HasCrCard': HASCRCARD,
+                 'IsActiveMember': ISACTIVEMEMBER,
+                 'EstimatedSalary': ESTIMATEDSALARY }
+    df.drop(['Surname', 'CustomerId', 'Balance', 'EstimatedSalary', 'CreditScore'], axis=1, inplace=True)
+    df = pd.get_dummies(df, columns=['Geography', 'Gender'])
     result=0
+    
     if st.button("Predict"):
-        result=ChurnPredictor(AGE, EXITED, GENDER, TENURE, BALANCE, SURNAME, GEOGRAPHY, HASCRCARD, CUSTOMERID, CREDITSCORE, NUMOFPRODUCTS, ISACTIVEMEMBER, ESTIMATEDSALARY)
+        result=ChurnPredictor(df)
     st.success('the output is {}'.format(result))
     if st.button("About"):
         st.text("Project Done by Elvin and Johan")
