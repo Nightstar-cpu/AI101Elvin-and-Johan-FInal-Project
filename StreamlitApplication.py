@@ -79,6 +79,10 @@ def main():
     df = pd.get_dummies(df, columns=['Geography', 'Gender'])
 
     scaler_train = pd.read_csv("Prep_X_train.csv")
+    df = scaler_train.copy()
+        
+    df_intersect = df[df.columns.intersection(scalar_train.columns)]
+    df = scalar_train.append(df_interset, ignore_index=True)
         
     scaler = StandardScaler()
     scaler.fit(scaler_train)
