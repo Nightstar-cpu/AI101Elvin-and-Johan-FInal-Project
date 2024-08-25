@@ -83,6 +83,7 @@ def main():
     scaler_train = pd.read_csv("Prep_X_train.csv")
     new_col = df.columns.symmetric_difference(scaler_train.columns).intersection(scaler_train.columns)
     df[new_col] = 0
+    df = df[scaler_train.columns]
         
     scaler = StandardScaler()
     scaler.fit(scaler_train)
