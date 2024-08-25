@@ -4,3 +4,7 @@ streamlit
 seaborn
 matplotlib
 scikit-learn
+
+
+
+Run Streamlit run StreamlitApplication.py
