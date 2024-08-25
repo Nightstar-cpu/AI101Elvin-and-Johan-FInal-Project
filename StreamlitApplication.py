@@ -22,11 +22,9 @@ key = 'johan/churn_model.pkl'
 
 ChurnFinder = pickle.loads(s3.Bucket(bucket).Object(key).get()['Body'].read())
 
-#@app.route('/')
 def welcome():
     return "Welcome All"
 
-#@app.route('/predict',methods=["Get"])
 def ChurnPredictor(df):
     
     prediction = ChurnFinder.predict(df)
