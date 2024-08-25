@@ -4,6 +4,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
+from sklearn.preprocessing import StandardScaler
 
 AWS_ACCESS_KEY_ID = 'AKIAXYKJQIA5RQJH2XWZ' # Change it with actual value of your AWS account.
 AWS_SECRET_ACCESS_KEY = 'Rg3PX4kY7rLhrQvGsXHydZYIuFiGpr/XBlFqaAcx' # Change it with actual value of your AWS account.
@@ -26,9 +27,9 @@ def welcome():
     return "Welcome All"
 
 #@app.route('/predict',methods=["Get"])
-def ChurnPredictor(AGE, EXITED, GENDER, TENURE, BALANCE, SURNAME, GEOGRAPHY, HASCRCARD, CUSTOMERID, CREDITSCORE, NUMOFPRODUCTS, ISACTIVEMEMBER, ESTIMATEDSALARY):
+def ChurnPredictor(df):
     
-    prediction = ChurnFinder.predict([[AGE, EXITED, GENDER, TENURE, BALANCE, SURNAME, GEOGRAPHY, HASCRCARD, CUSTOMERID, CREDITSCORE, NUMOFPRODUCTS, ISACTIVEMEMBER, ESTIMATEDSALARY]])
+    prediction = ChurnFinder.predict(df)
     print(prediction)
     return prediction
 
@@ -76,6 +77,14 @@ def main():
                  'EstimatedSalary': ESTIMATEDSALARY }, index=[0])
     df.drop(['Surname', 'CustomerId', 'Balance', 'EstimatedSalary', 'CreditScore'], axis=1, inplace=True)
     df = pd.get_dummies(df, columns=['Geography', 'Gender'])
+
+    scaler_train = pd.read_csv("Prep_X_train.csv")
+        
+    scaler = StandardScaler()
+    scaler.fit(scaler_train)
+    df = scaler.transform(df)
+
+        
     result=0
     
     if st.button("Predict"):
