@@ -78,11 +78,11 @@ def main():
     df.drop(['Surname', 'CustomerId', 'Balance', 'EstimatedSalary', 'CreditScore'], axis=1, inplace=True)
     df = pd.get_dummies(df, columns=['Geography', 'Gender'])
 
-    scaler_train = pd.read_csv("Prep_X_train.csv")
-    df = scaler_train.copy()
         
-    df_intersect = df[df.columns.intersection(scaler_train.columns)]
-    df = pd.concat([scaler_train, df_intersect], ignore_index=True)
+
+    scaler_train = pd.read_csv("Prep_X_train.csv")
+    new_col = pd.df.columns.symmetric_difference(scaler_train.columns).intersection(scaler_train.columns)
+    df[new_col] = 0
         
     scaler = StandardScaler()
     scaler.fit(scaler_train)
